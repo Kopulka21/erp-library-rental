@@ -1,0 +1,42 @@
+<odoo>
+    <data noupdate="1">
+        <!-- Demo Books -->
+        <record id="book_1" model="library.book">
+            <field name="name">Основи Odoo</field>
+            <field name="author">Іван Франко</field>
+            <field name="isbn">978-617-00-0001-1</field>
+            <field name="publish_year">2024</field>
+        </record>
+
+        <record id="book_2" model="library.book">
+            <field name="name">Архітектура підприємств</field>
+            <field name="author">Леся Українка</field>
+            <field name="isbn">978-617-00-0002-2</field>
+            <field name="publish_year">2023</field>
+        </record>
+
+        <!-- Demo Members -->
+        <record id="member_1" model="library.member">
+            <field name="name">Олександр Петренко</field>
+            <field name="membership_number">M001</field>
+        </record>
+
+        <record id="member_2" model="library.member">
+            <field name="name">Марія Коваль</field>
+            <field name="membership_number">M002</field>
+        </record>
+
+        <!-- Demo Copies -->
+        <record id="copy_1" model="library.copy">
+            <field name="book_id" ref="book_1"/>
+            <field name="inventory_number">INV-001</field>
+            <field name="condition">new</field>
+        </record>
+
+        <record id="copy_2" model="library.copy">
+            <field name="book_id" ref="book_2"/>
+            <field name="inventory_number">INV-002</field>
+            <field name="condition">good</field>
+        </record>
+    </data>
+</odoo>

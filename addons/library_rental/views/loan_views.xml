@@ -1,0 +1,53 @@
+<odoo>
+    <record id="view_library_loan_tree" model="ir.ui.view">
+        <field name="name">library.loan.tree</field>
+        <field name="model">library.loan</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="copy_id"/>
+                <field name="book_id"/>
+                <field name="member_id"/>
+                <field name="loan_date"/>
+                <field name="due_date"/>
+                <field name="return_date"/>
+                <field name="state"/>
+            </list>
+        </field>
+    </record>
+    <record id="view_library_loan_form" model="ir.ui.view">
+        <field name="name">library.loan.form</field>
+        <field name="model">library.loan</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group string="Видача">
+                            <field name="copy_id"/>
+                            <field name="member_id"/>
+                            <field name="loan_date"/>
+                            <field name="due_date"/>
+                            <field name="return_date"/>
+                        </group>
+                        <group string="Книга (з примірника)">
+                            <field name="book_id"/>
+                            <field name="book_author"/>
+                            <field name="book_isbn"/>
+                            <field name="copy_condition"/>
+                        </group>
+                        <group string="Читач">
+                            <field name="member_number"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="action_library_loan" model="ir.actions.act_window">
+        <field name="name">Видачі</field>
+        <field name="res_model">library.loan</field>
+        <field name="view_mode">list,form</field>
+    </record>
+</odoo>

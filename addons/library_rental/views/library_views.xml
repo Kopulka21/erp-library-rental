@@ -1,0 +1,24 @@
+<odoo>
+    <!-- Book Views -->
+    <record id="view_library_book_tree" model="ir.ui.view">
+        <field name="name">library.book.tree</field>
+        <field name="model">library.book</field>
+        <field name="arch" type="xml">
+            <list string="Книги">
+                <field name="name"/>
+                <field name="author"/>
+                <field name="publish_year"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="action_library_book" model="ir.actions.act_window">
+        <field name="name">Книги</field>
+        <field name="res_model">library.book</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <!-- Menu Items -->
+    <menuitem id="menu_library_root" name="Бібліотека" sequence="10"/>
+    <menuitem id="menu_library_book" name="Книги" parent="menu_library_root" action="action_library_book" sequence="10"/>
+</odoo>

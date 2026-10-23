@@ -1,0 +1,81 @@
+<odoo>
+    <record id="book_kobzar" model="library.book">
+        <field name="name">Кобзар</field><field name="author">Тарас Шевченко</field>
+        <field name="isbn">978-966-03-0001-1</field><field name="publish_year">1840</field>
+    </record>
+    <record id="book_lisova" model="library.book">
+        <field name="name">Лісова пісня</field><field name="author">Леся Українка</field>
+        <field name="isbn">978-966-03-0002-2</field><field name="publish_year">1911</field>
+    </record>
+    <record id="book_zakhar" model="library.book">
+        <field name="name">Захар Беркут</field><field name="author">Іван Франко</field>
+        <field name="isbn">978-966-03-0003-3</field><field name="publish_year">1883</field>
+    </record>
+    <record id="book_perekhresni" model="library.book">
+        <field name="name">Перехресні стежки</field><field name="author">Іван Франко</field>
+        <field name="isbn">978-966-03-0004-4</field><field name="publish_year">1900</field>
+    </record>
+
+    <record id="copy_kobzar_1" model="library.copy">
+        <field name="book_id" ref="book_kobzar"/><field name="inventory_number">INV-001</field><field name="condition">good</field>
+    </record>
+    <record id="copy_kobzar_2" model="library.copy">
+        <field name="book_id" ref="book_kobzar"/><field name="inventory_number">INV-002</field><field name="condition">new</field>
+    </record>
+    <record id="copy_kobzar_3" model="library.copy">
+        <field name="book_id" ref="book_kobzar"/><field name="inventory_number">INV-003</field><field name="condition">damaged</field>
+    </record>
+    <record id="copy_lisova_1" model="library.copy">
+        <field name="book_id" ref="book_lisova"/><field name="inventory_number">INV-004</field><field name="condition">good</field>
+    </record>
+    <record id="copy_lisova_2" model="library.copy">
+        <field name="book_id" ref="book_lisova"/><field name="inventory_number">INV-005</field><field name="condition">good</field>
+    </record>
+    <record id="copy_zakhar_1" model="library.copy">
+        <field name="book_id" ref="book_zakhar"/><field name="inventory_number">INV-006</field><field name="condition">new</field>
+    </record>
+    <record id="copy_zakhar_2" model="library.copy">
+        <field name="book_id" ref="book_zakhar"/><field name="inventory_number">INV-007</field><field name="condition">good</field>
+    </record>
+    <record id="copy_perekhresni_1" model="library.copy">
+        <field name="book_id" ref="book_perekhresni"/><field name="inventory_number">INV-008</field><field name="condition">good</field>
+    </record>
+
+    <record id="member_olena" model="library.member">
+        <field name="name">Олена Коваленко</field><field name="membership_number">M-0001</field>
+        <field name="email">olena@example.com</field>
+    </record>
+    <record id="member_andriy" model="library.member">
+        <field name="name">Андрій Мельник</field><field name="membership_number">M-0002</field>
+        <field name="phone">+380501112233</field>
+    </record>
+    <record id="member_iryna" model="library.member">
+        <field name="name">Ірина Бондаренко</field><field name="membership_number">M-0003</field>
+    </record>
+
+    <record id="loan_1" model="library.loan">
+        <field name="copy_id" ref="copy_kobzar_1"/><field name="member_id" ref="member_olena"/>
+        <field name="loan_date" eval="(DateTime.today() - timedelta(days=30)).strftime('%Y-%m-%d')"/>
+        <field name="due_date" eval="(DateTime.today() - timedelta(days=16)).strftime('%Y-%m-%d')"/>
+        <field name="state">active</field>
+    </record>
+    <record id="loan_2" model="library.loan">
+        <field name="copy_id" ref="copy_lisova_1"/><field name="member_id" ref="member_andriy"/>
+        <field name="loan_date" eval="(DateTime.today() - timedelta(days=3)).strftime('%Y-%m-%d')"/>
+        <field name="due_date" eval="(DateTime.today() + timedelta(days=11)).strftime('%Y-%m-%d')"/>
+        <field name="state">active</field>
+    </record>
+    <record id="loan_3" model="library.loan">
+        <field name="copy_id" ref="copy_zakhar_1"/><field name="member_id" ref="member_iryna"/>
+        <field name="loan_date" eval="(DateTime.today() - timedelta(days=20)).strftime('%Y-%m-%d')"/>
+        <field name="due_date" eval="(DateTime.today() - timedelta(days=6)).strftime('%Y-%m-%d')"/>
+        <field name="return_date" eval="(DateTime.today() - timedelta(days=8)).strftime('%Y-%m-%d')"/>
+        <field name="state">returned</field>
+    </record>
+    <record id="loan_4" model="library.loan">
+        <field name="copy_id" ref="copy_zakhar_2"/><field name="member_id" ref="member_olena"/>
+        <field name="loan_date" eval="(DateTime.today() - timedelta(days=25)).strftime('%Y-%m-%d')"/>
+        <field name="due_date" eval="(DateTime.today() - timedelta(days=11)).strftime('%Y-%m-%d')"/>
+        <field name="state">active</field>
+    </record>
+</odoo>

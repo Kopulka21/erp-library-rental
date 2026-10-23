@@ -1,0 +1,11 @@
+<odoo>
+    <menuitem id="menu_library_root" name="Бібліотека" sequence="10"/>
+    <menuitem id="menu_library_book" name="Книги" parent="menu_library_root"
+              action="action_library_book" sequence="10"/>
+    <menuitem id="menu_library_copy" name="Примірники" parent="menu_library_root"
+              action="action_library_copy" sequence="20"/>
+    <menuitem id="menu_library_member" name="Читачі" parent="menu_library_root"
+              action="action_library_member" sequence="30"/>
+    <menuitem id="menu_library_loan" name="Видачі" parent="menu_library_root"
+              action="action_library_loan" sequence="40"/>
+</odoo>
