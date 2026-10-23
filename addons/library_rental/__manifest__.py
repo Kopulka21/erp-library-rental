@@ -7,6 +7,11 @@
     'data': [
         'security/ir.model.access.csv',
         'views/library_views.xml',
+        'views/book_views.xml',
+        'views/member_views.xml',
+        'views/copy_views.xml',
+        'views/loan_views.xml',  
+        'views/menu.xml',
         'data/library_demo.xml',
     ],
     'installable': True,

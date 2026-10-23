@@ -38,5 +38,78 @@
             <field name="inventory_number">INV-002</field>
             <field name="condition">good</field>
         </record>
+<!-- Extra Books -->
+        <record id="book_3" model="library.book">
+            <field name="name">Кобзар</field>
+            <field name="author">Тарас Шевченко</field>
+            <field name="isbn">978-617-00-0003-3</field>
+            <field name="publish_year">2019</field>
+        </record>
+        <record id="book_4" model="library.book">
+            <field name="name">Тіні забутих предків</field>
+            <field name="author">Михайло Коцюбинський</field>
+            <field name="isbn">978-617-00-0004-4</field>
+            <field name="publish_year">2020</field>
+        </record>
+        <record id="book_5" model="library.book">
+            <field name="name">Лісова пісня</field>
+            <field name="author">Леся Українка</field>
+            <field name="isbn">978-617-00-0005-5</field>
+            <field name="publish_year">2021</field>
+        </record>
+<!-- Extra Member -->
+        <record id="member_3" model="library.member">
+            <field name="name">Ірина Мельник</field>
+            <field name="membership_number">M003</field>
+        </record>
+<!-- Extra Copies -->
+        <record id="copy_3" model="library.copy">
+            <field name="book_id" ref="book_3"/>
+            <field name="inventory_number">INV-003</field>
+            <field name="condition">new</field>
+        </record>
+        <record id="copy_4" model="library.copy">
+            <field name="book_id" ref="book_3"/>
+            <field name="inventory_number">INV-004</field>
+            <field name="condition">good</field>
+        </record>
+        <record id="copy_5" model="library.copy">
+            <field name="book_id" ref="book_4"/>
+            <field name="inventory_number">INV-005</field>
+            <field name="condition">good</field>
+        </record>
+        <record id="copy_6" model="library.copy">
+            <field name="book_id" ref="book_5"/>
+            <field name="inventory_number">INV-006</field>
+            <field name="condition">new</field>
+        </record>
+        <record id="copy_7" model="library.copy">
+            <field name="book_id" ref="book_5"/>
+            <field name="inventory_number">INV-007</field>
+            <field name="condition">good</field>
+        </record>
+<!-- Loans -->
+        <record id="loan_1" model="library.loan">
+            <field name="copy_id" ref="copy_1"/>
+            <field name="member_id" ref="member_1"/>
+            <field name="loan_date">2026-09-15</field>
+            <field name="due_date">2026-10-01</field>
+            <field name="state">active</field>
+        </record>
+        <record id="loan_2" model="library.loan">
+            <field name="copy_id" ref="copy_3"/>
+            <field name="member_id" ref="member_2"/>
+            <field name="loan_date">2026-10-20</field>
+            <field name="due_date">2026-11-10</field>
+            <field name="state">active</field>
+        </record>
+        <record id="loan_3" model="library.loan">
+            <field name="copy_id" ref="copy_2"/>
+            <field name="member_id" ref="member_3"/>
+            <field name="loan_date">2026-09-01</field>
+            <field name="due_date">2026-09-20</field>
+            <field name="return_date">2026-09-18</field>
+            <field name="state">returned</field>
+        </record>
     </data>
 </odoo>
