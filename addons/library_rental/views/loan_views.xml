@@ -10,6 +10,8 @@
                 <field name="loan_date"/>
                 <field name="due_date"/>
                 <field name="return_date"/>
+                <field name="fine_amount"/>
+                <field name="is_overdue" column_invisible="1"/>
                 <field name="state"/>
             </list>
         </field>
@@ -20,7 +22,8 @@
         <field name="arch" type="xml">
             <form>
                 <header>
-                    <field name="state" widget="statusbar"/>
+                    <button name="action_return" string="Повернути" type="object" class="btn-primary" invisible="state != 'active'"/>
+                    <field name="state" widget="statusbar" options="{'clickable': '1'}"/>
                 </header>
                 <sheet>
                     <group>
@@ -28,6 +31,8 @@
                             <field name="copy_id"/>
                             <field name="member_id"/>
                             <field name="loan_date"/>
+                            <field name="fine_amount"/>
+                            <field name="is_overdue"/>
                             <field name="due_date"/>
                             <field name="return_date"/>
                         </group>
