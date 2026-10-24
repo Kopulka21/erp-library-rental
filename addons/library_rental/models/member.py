@@ -10,8 +10,14 @@ class LibraryMember(models.Model):
     email = fields.Char(string='Email')
     phone = fields.Char(string='Телефон')
     loan_ids = fields.One2many('library.loan', 'member_id', string='Видачі')
+    user_id = fields.Many2one('res.users', string='Користувач Odoo', ondelete='set null', copy=False)
 
     _membership_number_unique = models.Constraint(
         'UNIQUE(membership_number)',
         'Номер читацького має бути унікальним.',
+    )
+
+    _user_id_unique = models.Constraint(
+        'UNIQUE(user_id)',
+        'Цей користувач Odoo вже привʼязаний до іншого читача.',
     )

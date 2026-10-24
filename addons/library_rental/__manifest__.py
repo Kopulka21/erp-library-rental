@@ -5,7 +5,7 @@
     'summary': 'Модуль управління бібліотекою та прокатом книг',
     'depends': ['base'],
     'data': [
-        'security/ir.model.access.csv',
+        'security/library_security.xml', 'security/ir.model.access.csv',
         'views/library_views.xml',
         'views/book_views.xml',
         'views/member_views.xml',

@@ -8,6 +8,7 @@
                 <field name="membership_number"/>
                 <field name="email"/>
                 <field name="phone"/>
+                <field name="user_id"/>
             </list>
         </field>
     </record>
@@ -22,6 +23,7 @@
                         <field name="membership_number"/>
                         <field name="email"/>
                         <field name="phone"/>
+                <field name="user_id"/>
                     </group>
                     <notebook>
                         <page string="Видачі">
