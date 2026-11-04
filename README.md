@@ -102,3 +102,31 @@ Member реалізований як окрема модель library.member з
 
 ### Перевірка під Читачем
 - Користувач `reader@test.com` бачить лише «Мої видачі» зі своєю видачею; прямий перехід до library.member дає помилку доступу.
+
+- ## Wizard і звіт (Практичне заняття 5)
+
+### Wizard «Оформити повернення»
+- `library.return.wizard` успадковує `models.TransientModel`: поля `loan_id` (Many2one до `library.loan`, required), `condition_on_return` (Selection з тими самими значеннями, що й `library.copy.condition`: `new` / `good` / `damaged`, required), `notes` (Text).
+- `default_get` підставляє `loan_id` з `active_id`, лише якщо `active_model == 'library.loan'`.
+- `action_confirm()` починається з `self.ensure_one()`, ставить видачі `state='returned'` і `return_date=today`, переносить стан у `copy_id.condition` і закриває вікно.
+- Форма відкривається модальним вікном (`target="new"`); кнопка «Оформити повернення» на формі Loan передає `default_loan_id` через контекст, видима лише для активних видач і лише Бібліотекарю.
+
+### QWeb-звіт «Історія видач читача»
+- `ir.actions.report` на моделі `library.member`, прив'язаний через `binding_model_id` — пункт з'являється в меню Друк на формі читача.
+- Шаблон використовує `web.external_layout`; `t-foreach="docs"` ітерує читачів, а видачі беруться через `member.loan_ids`.
+
+### Що довелося виправити після AI-генерації
+- Додала рядок у `ir.model.access.csv` для `library.return.wizard` — без нього TransientModel не відкривається.
+- У кнопці контекст `{'default_loan_id': id}` замість `active_id` — у виразах view Odoo 17+ поточний запис доступний як `id`.
+- `return_wizard_views.xml` підключений у `__manifest__.py` раніше за `loan_views.xml`, бо кнопка посилається на `%(action_library_return_wizard)d`.
+- У зразку `report_name` вказував на неіснуючий шаблон (був лише `..._document`): додала обгортку `report_member_loan_history` з `web.html_container`.
+- Прибрала `clickable` зі `statusbar` і стару кнопку «Повернути» (`action_return`) з практичного 3 — вони дозволяли закрити видачу в обхід візарда, без штрафу й оновлення стану примірника.
+- В `action_confirm()` додала перевірку, що видача ще активна (`UserError` при повторному поверненні).
+
+### AI-рев'ю
+- `action_confirm()` містить `ensure_one()` і працює з одним записом, без циклу `for rec in self`.
+- Модель звіту (`library.member`) відповідає тому, що реально ітерується в `docs`.
+
+### Перевірка
+- INV-001 (повернути до 01.10): після візарда стан «Повернена», дата повернення 04.11, штраф 170,00 грн (34 дні × 5 грн) перерахувався автоматично, стан примірника змінився на «Добрий».
+- Звіт для Марії Коваль (2 видачі) генерується з шапкою компанії. wkhtmltopdf на macOS не встановлений, тому Odoo показує HTML; PDF збережений через друк браузера.
