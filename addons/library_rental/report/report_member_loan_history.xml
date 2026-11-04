@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="action_report_member_loan_history" model="ir.actions.report">
+        <field name="name">Історія видач читача</field>
+        <field name="model">library.member</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">library_rental.report_member_loan_history</field>
+        <field name="report_file">library_rental.report_member_loan_history</field>
+        <field name="binding_model_id" ref="model_library_member"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <template id="report_member_loan_history">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="member">
+                <t t-call="library_rental.report_member_loan_history_document"/>
+            </t>
+        </t>
+    </template>
+
+    <template id="report_member_loan_history_document">
+        <t t-call="web.external_layout">
+            <div class="page">
+                <h2>Історія видач читача: <span t-field="member.name"/></h2>
+                <table class="table table-sm">
+                    <thead>
+                        <tr>
+                            <th>Книга</th>
+                            <th>Дата видачі</th>
+                            <th>Дата повернення</th>
+                            <th>Стан</th>
+                            <th>Штраф, грн</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr t-foreach="member.loan_ids" t-as="loan">
+                            <td><span t-field="loan.copy_id.book_id.name"/></td>
+                            <td><span t-field="loan.loan_date"/></td>
+                            <td><span t-field="loan.return_date"/></td>
+                            <td><span t-field="loan.state"/></td>
+                            <td><span t-field="loan.fine_amount"/></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </t>
+    </template>
+</odoo>
+

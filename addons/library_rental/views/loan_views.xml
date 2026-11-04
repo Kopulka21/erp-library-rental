@@ -22,8 +22,12 @@
         <field name="arch" type="xml">
             <form>
                 <header>
-                    <button name="action_return" string="Повернути" type="object" class="btn-primary" invisible="state != 'active'"/>
-                    <field name="state" widget="statusbar" options="{'clickable': '1'}"/>
+                    <button name="%(library_rental.action_library_return_wizard)d" type="action"
+                        string="Оформити повернення" class="btn-primary"
+                        context="{'default_loan_id': id}"
+                        invisible="state != 'active'"
+                        groups="library_rental.group_library_librarian"/>
+                    <field name="state" widget="statusbar"/>
                 </header>
                 <sheet>
                     <group>
