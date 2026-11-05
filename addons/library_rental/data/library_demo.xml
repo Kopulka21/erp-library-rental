@@ -111,5 +111,73 @@
             <field name="return_date">2026-09-18</field>
             <field name="state">returned</field>
         </record>
+            <!-- Practice 6: extra demo data -->
+        <record id="book_6" model="library.book">
+            <field name="name">Захар Беркут</field>
+            <field name="author">Іван Франко</field>
+            <field name="isbn">978-617-00-0006-6</field>
+        </record>
+        <record id="book_7" model="library.book">
+            <field name="name">Місто</field>
+            <field name="author">Валер'ян Підмогильний</field>
+            <field name="isbn">978-617-00-0007-3</field>
+        </record>
+
+        <record id="member_4" model="library.member">
+            <field name="name">Андрій Шевчук</field>
+            <field name="membership_number">M004</field>
+        </record>
+
+        <record id="copy_8" model="library.copy">
+            <field name="book_id" ref="book_1"/>
+            <field name="inventory_number">INV-008</field>
+            <field name="condition">good</field>
+        </record>
+        <record id="copy_9" model="library.copy">
+            <field name="book_id" ref="book_1"/>
+            <field name="inventory_number">INV-009</field>
+            <field name="condition">new</field>
+        </record>
+        <record id="copy_10" model="library.copy">
+            <field name="book_id" ref="book_6"/>
+            <field name="inventory_number">INV-010</field>
+            <field name="condition">good</field>
+        </record>
+        <record id="copy_11" model="library.copy">
+            <field name="book_id" ref="book_7"/>
+            <field name="inventory_number">INV-011</field>
+            <field name="condition">good</field>
+        </record>
+        <record id="copy_12" model="library.copy">
+            <field name="book_id" ref="book_6"/>
+            <field name="inventory_number">INV-012</field>
+            <field name="condition">damaged</field>
+        </record>
+
+        <record id="loan_4" model="library.loan">
+            <field name="copy_id" ref="copy_8"/>
+            <field name="member_id" ref="member_4"/>
+            <field name="loan_date" eval="(DateTime.today() - relativedelta(days=30)).strftime('%Y-%m-%d')"/>
+            <field name="state">active</field>
+        </record>
+        <record id="loan_5" model="library.loan">
+            <field name="copy_id" ref="copy_10"/>
+            <field name="member_id" ref="member_3"/>
+            <field name="loan_date" eval="(DateTime.today() - relativedelta(days=5)).strftime('%Y-%m-%d')"/>
+            <field name="state">active</field>
+        </record>
+        <record id="loan_6" model="library.loan">
+            <field name="copy_id" ref="copy_11"/>
+            <field name="member_id" ref="member_4"/>
+            <field name="loan_date" eval="(DateTime.today() - relativedelta(days=60)).strftime('%Y-%m-%d')"/>
+            <field name="return_date" eval="(DateTime.today() - relativedelta(days=50)).strftime('%Y-%m-%d')"/>
+            <field name="state">returned</field>
+        </record>
+        <record id="loan_7" model="library.loan">
+            <field name="copy_id" ref="copy_12"/>
+            <field name="member_id" ref="member_2"/>
+            <field name="loan_date" eval="(DateTime.today() - relativedelta(days=25)).strftime('%Y-%m-%d')"/>
+            <field name="state">active</field>
+        </record>
     </data>
 </odoo>

@@ -1,8 +1,12 @@
+import logging
 from datetime import timedelta
 from odoo import api, fields, models
 from odoo.exceptions import ValidationError
 LOAN_PERIOD_DAYS = 14
 FINE_PER_DAY = 5.0
+
+
+_logger = logging.getLogger(__name__)
 
 
 class LibraryLoan(models.Model):
@@ -79,3 +83,24 @@ class LibraryLoan(models.Model):
             rec.state = 'returned'
             if not rec.return_date:
                 rec.return_date = fields.Date.context_today(rec)
+
+
+    @api.model
+    def _cron_check_overdue_loans(self):
+        """Щоденна перевірка прострочених видач (ir.cron).
+        Loan не успадковує mail.thread, тому результат фіксується в лозі."""
+        overdue = self.search([
+            ('state', '=', 'active'),
+            ('due_date', '<', fields.Date.today()),
+        ])
+        _logger.info('Cron: знайдено %s прострочених видач', len(overdue))
+        for loan in overdue:
+            try:
+                _logger.warning(
+                    'Прострочена видача id=%s: примірник %s, читач %s, термін до %s',
+                    loan.id, loan.copy_id.inventory_number,
+                    loan.member_id.name, loan.due_date,
+                )
+            except Exception:
+                _logger.exception('Не вдалося обробити видачу %s', loan.id)
+                continue
